@@ -1,42 +1,50 @@
-import java.util.*;
+package imperative;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.IntStream;
 
 
 public class PerfectNumber {
 	
-	public static int met1(int Number ) {
-	  int Sum = 0;
-		for(int i = 1 ; i < Number ; i++) {
-			if(Number % i == 0)  {
-				Sum = Sum + i;
-			}	
-		}			
-		return Sum;
+	
+	
+	public enum STATE {
+		PERFECTNUM, DEFICIENTNUM, ABUNDANTNUM;
 	}
-		public static int met2(int Sum,int Number) {
-			if (Sum == Number) {
-				System.out.println(Number + " is a Perfect Number");
-			}
-			else if (Sum < Number) {
-				System.out.println(Number +" is deficient Number");
-			}
-			else if (Sum > Number) {
-				System.out.println(Number +" is abundant Number");
-			}
-			  return 0;
+
+	
+	
+		public static STATE process(int n) {
+			Integer sum = Number(n).stream().mapToInt(Integer::intValue).filter((num) -> num != n).sum();
+			if (sum == n)
+				return STATE.PERFECTNUM;
+			else {
+				if (sum < n) {
+					return STATE.DEFICIENTNUM;
+				} else {
+					return STATE.ABUNDANTNUM;
+				}
 		}
+	}
 				
 
-    public static void main(String[] args) {
-        System.out.println("Kirils Petrovs 2.g 171rdb098");
-        System.out.print("Enter A Number: ");
-        Scanner sc = new Scanner(System.in);
-        int Number = sc.nextInt(); 
-
-        met2(met1(Number),Number);
+		public static Set<Integer> Number(int n) {
+	        System.out.println("Kirils Petrovs 2.g 171rdb098");
+	        System.out.print("Enter A Number: ");
+			Set<Integer> sNumber =  new HashSet<Integer>();
+			int nsqr = (int) Math.round(Math.sqrt(n)) + 1;
+			System.out.println(n);
+			IntStream.range(1, nsqr).forEach( (num) ->{
+				System.out.println(n);
+				if (n%num == 0){
+					sNumber.add(num);
+					sNumber.add(n/num);
+					}
+				});
+			return sNumber;
+		}
         
-     
-	}
+    }     
 
- 
-}
+
 
